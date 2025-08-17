@@ -1,6 +1,6 @@
 // Sample music data
 const music = [
-    { title: "Parasite", artist: "Darx", src: "/music/Darx - Parasite.mp3" },
+    { title: "Parasite", artist: "Darx", src: "./music/Darx - Parasite.mp3" },
     { title: "Lost in the City Lights", artist: "Cosmo Sheldrake", src: "/music/Lost_in_the_City_Lights.mp3" },
     { title: "A New Beginning", artist: "Benjamin Tissot", src: "/music/A_New_Beginning.mp3" },
     { title: "The Epic Journey", artist: "Scott Buckley", src: "/music/The_Epic_Journey.mp3" },
@@ -355,4 +355,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
         }
     });
+
 });
