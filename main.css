@@ -1,0 +1,441 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.logo {
+  display: block;
+  width: 200px;
+  height: 200px;
+  /* Убираем все фоновые свойства */
+  background: none;
+  background-image: url('img/logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  text-indent: -9999px;
+  overflow: hidden;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400; /* Более легкий шрифт для читаемости */
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+}
+
+.wrapper {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(255, 0, 0, 0.8) 100%);
+  background-size: 200% 200%; /* Увеличиваем размер градиента для анимации */
+  width: 100%;
+  animation: AnimateBG 5s ease infinite; /* Применяем анимацию */
+}
+
+@keyframes AnimateBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.container {
+    width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    padding: 50px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    color: #4A4A4A;
+    text-transform: uppercase;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+header .logo:hover {
+    color: #FF5C5C;
+    transform: translateY(-2px);
+}
+
+header nav {
+    width: 50%;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav ul li a {
+    color: #4A4A4A;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 500ms ease;
+}
+
+header nav ul li a:hover {
+    color: cadetblue;
+    border-bottom: 5px solid #4A4A4A;
+}
+
+header nav ul li.btn a {
+    padding: 9px 17px;
+    border-radius: 5px;
+    background: linear-gradient(90deg, rgba(148, 187, 233, 1) 0%, rgba(238, 174, 202, 1) 100%);
+    color: white; /* Изменил цвет текста для лучшей контрастности */
+}
+
+/* Добавлены новые стили для кнопки входа для админа */
+header nav ul li.admin-btn a {
+    padding: 9px 17px;
+    border-radius: 5px;
+    background: #4A4A4A;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+header nav ul li.admin-btn a:hover {
+    background: #FF5C5C;
+    transform: translateY(-2px);
+}
+
+.hero {
+    padding-bottom: 100px;
+    position: relative;
+    z-index: 1;
+    display: flex; /* Используем Flexbox для основного контента */
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero--info {
+    width: 500px;
+    padding-top: 70px;
+    transition: all 0.5s ease;
+}
+
+.hero--info:hover {
+    transform: translateY(-10px);
+}
+
+.hero--info h2 {
+    font-size: 30px;
+    font-weight: 800;
+    transition: all 0.5s ease;
+}
+
+.hero--info:hover h2 {
+    letter-spacing: 2px;
+    color: #555;
+}
+
+.hero--info h1 {
+    font-size: 20px;
+    font-weight: 800;
+    transition: all 0.5s ease;
+    margin-top: 20px;
+}
+
+.hero--info:hover h1 {
+    color: #555;
+    letter-spacing: 2px;
+}
+
+.hero--info p,
+.hero--info ul {
+    font-weight: 500;
+    line-height: 170%;
+    margin: 30px 0;
+    transition: all 0.5s ease;
+}
+
+.hero--info:hover p,
+.hero--info:hover ul {
+    color: #555;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.hero--info ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.hero--info ul li {
+    margin-bottom: 10px;
+}
+
+.hero--info .btn {
+    background: linear-gradient(90deg, rgba(148, 187, 233, 1) 0%, rgba(238, 174, 202, 1) 100%);
+    color: #4A4A4A;
+    border: none;
+    border-radius: 100px;
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.hero--info .btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(255, 92, 92, 0.4), 0 5px 15px rgba(255, 255, 255, 0.3);
+}
+
+.hero img {
+    /* Для Flexbox убираем абсолютное позиционирование */
+    position: static;
+    flex-shrink: 0;
+    max-width: 50%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.hero img:hover {
+    transform: scale(1.05);
+}
+
+/* Новые стили для каталога */
+.trending {
+    padding: 50px 0;
+    position: relative;
+}
+
+.trending__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.trending__header h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #4A4A4A;
+    margin: 0;
+}
+
+.trending__header .see-all {
+    color: #4A4A4A;
+    font-size: 20px;
+    float: right;
+    font-weight: 600;
+    border-bottom: 2px solid #4A4A4A;
+    transition: all 0.3s ease;
+}
+
+.trending__header .see-all:hover {
+    color: #FF5C5C;
+    border-color: #FF5C5C;
+}
+
+.trending__products {   /*В ряд или список*/
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.trending__product-block {  /*ПОКАЗАТЬ*/
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    /* Выравнивание по центру теперь применяется к содержимому блока */
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.trending__product-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.trending__product-block img {
+    /* Обновлено: теперь все изображения имеют одинаковый размер 150x150px */
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.trending__product-block span {
+    display: flex;
+    align-items: center;
+    /* Обновлено: теперь иконка и текст выровнены по центру */
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #4A4A4A;
+}
+
+.trending__product-block span img {
+    /* Размер иконки возвращен на 20px */
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+/* Медиа-запрос для мобильных устройств (ширина экрана до 768px) */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    header {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 0;
+        gap: 20px;
+    }
+    
+    header nav {
+        width: 100%;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .hero {
+        flex-direction: column;
+        padding-bottom: 50px;
+    }
+
+    .hero--info {
+        width: 100%;
+        padding-top: 0;
+        text-align: center;
+    }
+
+    .hero--info h2, .hero--info h1 {
+        padding: 0;
+    }
+
+    .hero--info p,
+    .hero--info ul {
+        margin: 20px 0;
+        text-align: left;
+    }
+    
+    .hero img {
+        width: 80%;
+    }
+
+    .trending__header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .trending__products {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+.tovar span img { /* это иконка огня */
+    width: 20px; /* Размер иконки возвращен на 20px */
+    height: 20px;
+    margin-right: 5px;
+}
+
+/* Контакты */
+
+.hero-about {
+    position: relative;
+    height: 900px;
+}
+
+.hero-about .info {
+    width: 500px;
+    padding: 50px 0;
+
+}
+
+.hero-about .info h1 {
+    margin-bottom: 15px;
+    font-size: 30px;
+}
+
+.hero-about .info p {
+    margin-bottom: 15px;
+    font-size: 30px;
+}
+
+.hero-about .info .btn {
+    background: linear-gradient(90deg, rgba(148, 187, 233, 1) 0%, rgba(238, 174, 202, 1) 100%);
+    color: #4A4A4A;
+    border: none;
+    border-radius: 100px;
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.hero-about .info .btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(255, 92, 92, 0.4), 0 5px 15px rgba(255, 255, 255, 0.3);
+}
+
+.hero-about img {
+    position: absolute;
+    padding-top: 50px;
+    height: 800px;
+    right: -200px;
+    top: 0;
+}
+
+.vertical-contact-btn {
+    position: top;
+}

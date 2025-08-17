@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Музыкальный плеер</title>
+    <!-- Подключаем Tailwind CSS для красивого дизайна -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Устанавливаем шрифт Inter для всего документа -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
+
+    <!-- Основной контейнер плеера -->
+    <div class="w-full max-w-sm bg-gray-800 rounded-xl shadow-2xl p-6">
+        
+        <!-- Заголовок плеера -->
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold">Мой музыкальный плеер</h1>
+        </div>
+
+        <!-- Название трека и исполнитель -->
+        <div class="text-center mb-6 mt-4"> 
+            <h2 id="track-name" class="text-xl font-semibold break-words">Название трека</h2>
+            <p id="artist-name" class="text-gray-400 break-words">Исполнитель</p>
+        </div>
+
+        <!-- Прогресс-бар -->
+        <div class="mb-4">
+            <div id="progress-container" class="w-full bg-gray-700 rounded-full h-2.5 cursor-pointer">
+                <div id="progress-bar" class="bg-indigo-500 h-2.5 rounded-full" style="width: 0%;"></div>
+            </div>
+            <div class="flex justify-between text-xs mt-2 text-gray-400">
+                <span id="current-time">0:00</span>
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+
+        <!-- Кнопки управления -->
+        <div class="flex items-center justify-center space-x-6">
+            <button id="prev-btn" class="text-indigo-400 hover:text-indigo-600 transition-colors">
+                <!-- SVG-иконка "предыдущая песня" -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-skip-back">
+                    <polygon points="19 20 9 12 19 4 19 20"/>
+                    <line x1="5" x2="5" y1="19" y2="5"/>
+                </svg>
+            </button>
+            <button id="play-pause-btn" class="bg-indigo-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-600 transition-colors">
+                <!-- SVG-иконка "играть" -->
+                <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play">
+                    <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+                <!-- SVG-иконка "пауза" -->
+                <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pause" style="display: none;">
+                    <rect x="6" y="4" width="4" height="16" rx="1"/>
+                    <rect x="14" y="4" width="4" height="16" rx="1"/>
+                </svg>
+            </button>
+            <button id="next-btn" class="text-indigo-400 hover:text-indigo-600 transition-colors">
+                <!-- SVG-иконка "следующая песня" -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-skip-forward">
+                    <polygon points="5 4 15 12 5 20 5 4"/>
+                    <line x1="19" x2="19" y1="5" y2="19"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Аудио-элемент, который будет проигрывать музыку -->
+    <audio id="audio-element" style="display: none;"></audio>
+
+    <!-- Подключаем JavaScript-файл с логикой плеера -->
+    <script src="player.js"></script>
+
+</body>
+</html>

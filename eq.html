@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Equalizer</title>
+    
+    <!-- Подключаем Tailwind CSS для стилей -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #E5E7EB;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        #equalizer-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        #controls-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            background-color: rgba(31, 41, 55, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Канвас для отрисовки эквалайзера -->
+    <canvas id="equalizer-canvas"></canvas>
+
+    <!-- Элементы управления -->
+    <div id="controls-container">
+        <h1 class="text-3xl font-bold mb-4">Музыкальный эквалайзер</h1>
+        <audio id="audio-element" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1ab70817b9.mp3" loop></audio>
+        <button id="play-pause-btn" class="bg-indigo-600 text-white w-20 h-20 rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 transition-colors transform hover:scale-105">
+            <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pause hidden">
+                <rect x="6" y="4" width="4" height="16" rx="1"/>
+                <rect x="14" y="4" width="4" height="16" rx="1"/>
+            </svg>
+        </button>
+        <p id="status-text" class="text-gray-400 text-sm mt-2">Нажмите на кнопку Play, чтобы начать</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('equalizer-canvas');
+            const ctx = canvas.getContext('2d');
+            const audio = document.getElementById('audio-element');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const playIcon = document.getElementById('play-icon');
+            const pauseIcon = document.getElementById('pause-icon');
+            const statusText = document.getElementById('status-text');
+
+            let audioContext;
+            let analyser;
+
+            // Функция для инициализации AudioContext и анализатора
+            function setupEqualizer() {
+                // AudioContext можно создать только после взаимодействия пользователя
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const source = audioContext.createMediaElementSource(audio);
+                    analyser = audioContext.createAnalyser();
+                    source.connect(analyser);
+                    analyser.connect(audioContext.destination);
+                    analyser.fftSize = 256;
+                }
+            }
+
+            // Функция для отрисовки эквалайзера
+            function drawEqualizer() {
+                requestAnimationFrame(drawEqualizer);
+
+                if (!analyser) return;
+
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+                analyser.getByteFrequencyData(dataArray);
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const radius = Math.min(centerX, centerY) * 0.4;
+                const barWidth = 3;
+                
+                // Отрисовка кругового эквалайзера
+                for (let i = 0; i < bufferLength; i++) {
+                    const barHeight = dataArray[i] * 1.5; 
+                    const angle = (i / bufferLength) * Math.PI * 2;
+
+                    const x1 = centerX + Math.cos(angle) * radius;
+                    const y1 = centerY + Math.sin(angle) * radius;
+                    const x2 = centerX + Math.cos(angle) * (radius + barHeight);
+                    const y2 = centerY + Math.sin(angle) * (radius + barHeight);
+
+                    const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
+                    gradient.addColorStop(0, '#4F46E5'); 
+                    gradient.addColorStop(1, '#818CF8'); 
+
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.strokeStyle = gradient;
+                    ctx.lineWidth = barWidth;
+                    ctx.stroke();
+                }
+            }
+
+            // Обработка изменения размера окна
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+
+            // Управление воспроизведением
+            playPauseBtn.addEventListener('click', () => {
+                if (audioContext && audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                
+                if (audio.paused) {
+                    audio.play();
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                    statusText.textContent = 'Воспроизведение...';
+                } else {
+                    audio.pause();
+                    playIcon.classList.remove('hidden');
+                    pauseIcon.classList.add('hidden');
+                    statusText.textContent = 'Пауза';
+                }
+            });
+
+            // Инициализируем канвас и эквалайзер при загрузке страницы
+            window.onload = function() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                setupEqualizer();
+                drawEqualizer();
+            };
+        });
+    </script>
+</body>
+</html>
